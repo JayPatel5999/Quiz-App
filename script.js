@@ -92,6 +92,14 @@ const questions = [
     }
 ];
 
+// Function to shuffle the array randomly
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+
 const questionElement = document.getElementById("question");
 const answerButtonsElement = document.getElementById("answer-buttons");
 const nextButton = document.getElementById('next-btn');
@@ -100,8 +108,8 @@ let shuffledQuestions, currentQuestionIndex = 0;
 let score = 0;
 
 function startQuiz (){
+    shuffleArray(questions);
     currentQuestionIndex = 0;
-    score = 0;
     nextButton.innerHTML = 'Next';
     showQuestion();  
 }
@@ -158,7 +166,7 @@ function showScore(){
     questionElement.innerHTML = "Your score is " + score + " out of " + questions.length;
     nextButton.innerHTML = 'Restart';
     nextButton.style.display = 'block';
-
+    score = 0;
 }
 
 function handleNextButton(){
@@ -169,7 +177,6 @@ function handleNextButton(){
     else{
         showScore();
     }
-
 }
 
 nextButton.addEventListener("click", ()=>{
